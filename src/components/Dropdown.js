@@ -8,8 +8,8 @@ const Dropdown = ({ items }) => {
       <option className="text-slate-300" value="" disabled selected>
         Country
       </option>
-      {items.map((item) => (
-        <option key={item.id} value={item.id}>
+      {items.map((item, index) => (
+        <option key={index} value={item.name}>
           {item.name}
         </option>
       ))}
