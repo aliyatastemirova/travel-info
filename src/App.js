@@ -1,32 +1,38 @@
 import "./App.css";
 import About from "./components/About";
+import Country from "./components/Country";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Search from "./components/Search";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import axios from "axios";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Country from "./components/Country";
 
 function App() {
   const [countries, setCountries] = useState([]);
+  const [countryData, setCountryData] = useState([]);
 
   useEffect(() => {
-    const fetchCountries = async () => {
-      const res = await fetch("https://travelbriefing.org/countries.json");
-      const data = await res.json();
-      if (data) return data;
-      alert("The API is down. Please try again later.");
+    const getCountries = async () => {
+      const countriesFromApi = await axios.get(
+        "https://travelbriefing.org/countries.json"
+      );
+      setCountries(countriesFromApi?.data);
     };
 
-    const getCountries = async () => {
-      const countriesFromApi = await fetchCountries();
-      setCountries(countriesFromApi);
+    const getCountryData = async (country) => {
+      const countryDataFromApi = await axios.get(
+        `https://travelbriefing.org/${country}?format=json`,
+        { headers: { "Content-Type": "application/json" } }
+      );
+      setCountryData(countryDataFromApi?.data);
     };
     getCountries();
+    getCountryData("Belgium");
   }, []);
 
   return (
-    <Router>
+    <BrowserRouter>
       <div className="flex flex-col items-center justify-center h-screen py-10">
         <div id="header" className="py-3 h-10">
           <Header />
@@ -37,13 +43,9 @@ function App() {
             element={
               <div className="mb-auto w-full items-center justify-center text-center md:w-1/3">
                 <div id="search" className="py-5">
-                  {countries ? (
-                    <Search countries={countries} />
-                  ) : (
-                    alert("The API is down. Please try again later.")
-                  )}
+                  <Search countries={countries} />
                 </div>
-                <Country country={"Belgium"} />
+                <Country country={countryData} />
               </div>
             }
           />
@@ -51,7 +53,7 @@ function App() {
         </Routes>
         <Footer className="h-10" />
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 
