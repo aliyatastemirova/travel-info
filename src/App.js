@@ -9,8 +9,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 function App() {
-  const [countries, setCountries] = useState([]);
-  const [countryData, setCountryData] = useState([]);
+  const [countries, setCountries] = useState(null);
+  const [countryData, setCountryData] = useState(null);
 
   useEffect(() => {
     const getCountries = async () => {
@@ -23,7 +23,11 @@ function App() {
     const getCountryData = async (country) => {
       const countryDataFromApi = await axios.get(
         `https://travelbriefing.org/${country}?format=json`,
-        { headers: { "Content-Type": "application/json" } }
+        {
+          headers: {
+            "Content-Type": "application/html",
+          },
+        }
       );
       setCountryData(countryDataFromApi?.data);
     };
@@ -33,7 +37,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="flex flex-col items-center justify-center h-screen py-10">
+      <div className="flex flex-col items-center justify-center h-full py-10">
         <div id="header" className="py-3 h-10">
           <Header />
         </div>
@@ -45,7 +49,7 @@ function App() {
                 <div id="search" className="py-5">
                   <Search countries={countries} />
                 </div>
-                <Country country={countryData} />
+                <Country countryData={countryData} />
               </div>
             }
           />
