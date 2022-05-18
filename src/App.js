@@ -9,26 +9,21 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 function App() {
-  const [countries, setCountries] = useState(null);
+  const [countries, setCountries] = useState([]);
   const [countryData, setCountryData] = useState(null);
 
   useEffect(() => {
     const getCountries = async () => {
-      const countriesFromApi = await axios.get(
-        "https://travelbriefing.org/countries.json"
-      );
+      const countriesFromApi = await axios.get("/countries.json");
       setCountries(countriesFromApi?.data);
     };
 
     const getCountryData = async (country) => {
-      const countryDataFromApi = await axios.get(
-        `https://travelbriefing.org/${country}?format=json`,
-        {
-          headers: {
-            "Content-Type": "application/html",
-          },
-        }
-      );
+      const countryDataFromApi = await axios.get(`/${country}?format=json`, {
+        headers: {
+          "Content-Type": "application/html",
+        },
+      });
       setCountryData(countryDataFromApi?.data);
     };
     getCountries();

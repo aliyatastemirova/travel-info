@@ -1,8 +1,10 @@
 import Info from "./Info";
-import PropTypes from "prop-types";
+import CountryMap from "./Map";
 
 const Country = ({ countryData }) => {
-  const languages = countryData.language?.map((obj) => obj.language).join(", ");
+  const languages = countryData
+    ? countryData.language?.map((obj) => obj.language).join(", ")
+    : [];
 
   return countryData ? (
     <div id="countryData" className="space-y-4 text-left pb-10">
@@ -50,12 +52,14 @@ const Country = ({ countryData }) => {
           `Fire: ${countryData.telephone.fire}`,
         ]}
       />
+      <CountryMap
+        pos={[
+          parseFloat(countryData.maps.lat),
+          parseFloat(countryData.maps.long),
+        ]}
+      />
     </div>
   ) : null;
-};
-
-Country.propTypes = {
-  countryData: PropTypes.object.isRequired,
 };
 
 export default Country;
