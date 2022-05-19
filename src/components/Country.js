@@ -1,3 +1,4 @@
+import Graph from "./Graph";
 import Info from "./Info";
 import CountryMap from "./Map";
 
@@ -52,6 +53,14 @@ const Country = ({ countryData }) => {
           `Fire: ${countryData.telephone.fire}`,
         ]}
       />
+      <Info
+        title="Weather"
+        description={["Average temperature (°C) per month"]}
+      />
+      <Graph weatherData={countryData.weather} />
+      <div className="rounded-2xl bg-orange-100">
+        <h1 className="text-xl text-orange-600 text-bold p-1 pl-3">Map</h1>
+      </div>
       <CountryMap
         pos={[
           parseFloat(countryData.maps.lat),
