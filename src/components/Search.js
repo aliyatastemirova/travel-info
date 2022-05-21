@@ -1,14 +1,12 @@
 import PropTypes from "prop-types";
-import Button from "./Button";
 import Dropdown from "./Dropdown";
 
-const Search = ({ title, countries }) => {
+const Search = ({ title, countries, onSubmit }) => {
   return (
-    <div className="flex flex-col space-y-6 w-full items-center">
+    <div className="m-auto w-64 flex flex-col space-y-6 items-center md:w-full">
       <h1 className="text-xl text-slate-400">{title}</h1>
       <div className="flex flex-col items-center space-y-6 w-3/4 md:flex-row md:space-x-4 md:space-y-0 md:items-stretch">
-        <Dropdown items={countries} />
-        <Button />
+        <Dropdown countries={countries} onSubmit={onSubmit} />
       </div>
     </div>
   );

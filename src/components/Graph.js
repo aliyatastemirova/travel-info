@@ -70,12 +70,7 @@ const Graph = ({ weatherData }) => {
     <div className="app">
       <div className="row">
         <div className="mixed-chart">
-          <Chart
-            options={state.options}
-            series={state.series}
-            type="line"
-            width="500"
-          />
+          <Chart options={state.options} series={state.series} type="line" />
         </div>
       </div>
     </div>

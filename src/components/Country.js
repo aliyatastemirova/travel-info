@@ -3,14 +3,18 @@ import Info from "./Info";
 import CountryMap from "./Map";
 
 const Country = ({ countryData }) => {
+  console.log(countryData);
   const languages = countryData
     ? countryData.language?.map((obj) => obj.language).join(", ")
     : [];
 
   return countryData ? (
-    <div id="countryData" className="space-y-4 text-left pb-10">
+    <div
+      id="countryData"
+      className="m-auto w-64 space-y-4 text-left pb-10 md:w-full"
+    >
       <h1 className="font-bold text-orange-500 text-xl pl-3">
-        {countryData.names?.full}
+        {countryData.names?.name}
       </h1>
       <div className="flex flex-row">
         <p className="text-slate-400 p-1 pl-3">
@@ -41,9 +45,10 @@ const Country = ({ countryData }) => {
         title="Vaccinations"
         description={
           countryData.vaccinations.length
-            ? [countryData.vaccinations.join(", ")]
+            ? countryData.vaccinations.map((elem) => [elem.name, elem.message])
             : ["No vaccinations required"]
         }
+        horizontal={false}
       />
       <Info
         title="Emergency phone numbers"
