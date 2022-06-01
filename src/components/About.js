@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const About = () => {
   return (
-    <div className="mb-auto py-5 flex flex-col items-center space-y-6 w-3/4">
+    <div className="min-h-screen h-full py-5 flex flex-col items-center space-y-6 w-3/4">
       <h4>Version 1.0.0</h4>
       <p className="text-center">
         This is a demo project to practice React and Tailwind using the

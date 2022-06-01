@@ -9,10 +9,7 @@ const Country = ({ countryData }) => {
     : [];
 
   return countryData ? (
-    <div
-      id="countryData"
-      className="m-auto w-64 space-y-4 text-left pb-10 md:w-full"
-    >
+    <div id="countryData" className="space-y-4 text-left pb-10 md:w-full">
       <h1 className="font-bold text-orange-500 text-xl pl-3">
         {countryData.names?.name}
       </h1>

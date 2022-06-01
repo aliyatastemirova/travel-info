@@ -36,7 +36,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="flex flex-col items-center justify-center h-full p-5 w-3/4 space-y-6 md:py-10 md:space-y-0 md:w-full">
+      <div className="flex flex-col items-center justify-center min-h-screen h-full p-5 space-y-6 md:py-10 md:space-y-0 w-full">
         <div id="header" className="py-3 h-10 text-center">
           <Header />
         </div>
@@ -44,10 +44,16 @@ function App() {
           <Route
             path="/"
             element={
-              <div className="flex flex-col h-full pt-5 items-center justify-center md:max-w-[1440px] md:w-full md:flex-row">
-                <div className="h-full space-y-6 md:grid md:grid-cols-[350px,1090px] md:h-full md:space-y-0">
+              <div className="flex flex-col h-full pt-5 items-center justify-center md:max-w-[1440px] w-full md:flex-row">
+                <div
+                  className={`h-full w-full space-y-6 grid grid-cols-1 ${
+                    countryData
+                      ? "grid-rows-[220px,1fr] md:grid-cols-[1fr,3fr] md:grid-rows-1"
+                      : "md:grid-cols-1"
+                  } md:h-full md:space-y-0`}
+                >
                   <div className="md:grid md:grid-rows-[350px,3fr,350px]">
-                    <div className="mb-auto items-center justify-center text-center md:w-full">
+                    <div className="items-center justify-center text-center w-full">
                       <div id="search" className="pt-5">
                         <Search
                           countries={countries}
@@ -57,13 +63,7 @@ function App() {
                     </div>
                   </div>
                   <div className="p-5">
-                    {countryData ? (
-                      <Country countryData={countryData} />
-                    ) : (
-                      <div className="font-bold text-orange-500 text-xl text-center py-10 md:py-0 md:pl-36 md:text-left">
-                        Waiting for you to choose a country...
-                      </div>
-                    )}
+                    {countryData && <Country countryData={countryData} />}
                   </div>
                 </div>
               </div>
